@@ -1,4 +1,4 @@
-# FAASpaceOpsBot
+# FAA Space Operations Bot
 <h3>Follow the bot on: <a href="https://twitter.com/FAASpaceOpsBot">Twitter</a></h3>
 
 This is a bot to automatically retrieve the list of expected space operations listed in the FAA's Operation Plan. This project currently runs on GitLab, which automatically runs the code for the bot and posts to Twitter automatically. The bot will be capable of posting on other platforms in the near future.
@@ -14,3 +14,5 @@ This is a bot to automatically retrieve the list of expected space operations li
 At the end of everything, the temporary text files are deleted.
 
 <i>I know some will skewer me for my messy code, but I write data analysis code in my day job, so I think I get a pass.</i>
+
+Disclaimer: I'm not affiliated with the FAA in any way.
