@@ -1,0 +1,7 @@
+beautifulsoup4
+certifi
+pytz
+soupsieve
+tweepy
+urllib3
+wheel
