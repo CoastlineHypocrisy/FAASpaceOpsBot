@@ -26,11 +26,11 @@ with open('scratch.txt', 'r') as file:
             format_primary = 'PRIMARY:'
             format_backup1 = 'BACKUP(S):'
             format_backup2 = 'BACKUP:'
-            remove_tab = line.replace('\t', ' ')
+            remove_tab = line.replace('\t', '   ')
             if line.startswith(format_primary):
-                new_file.write(remove_tab.replace(format_primary, '== PRIMARY ==\n '))
+                new_file.write(remove_tab.replace(format_primary, '== PRIMARY ==\n   '))
             elif line.startswith(format_backup1):
-                new_file.write((remove_tab.replace(format_backup1, '== BACKUP(S) ==\n ')))
+                new_file.write((remove_tab.replace(format_backup1, '== BACKUP(S) ==\n   ')))
             elif line.startswith(format_backup2):
                 new_file.write((remove_tab.replace(format_backup2, '== BACKUP(S) ==\n')))
             else:
