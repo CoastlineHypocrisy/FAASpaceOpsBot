@@ -28,16 +28,12 @@ def run():
     character_limit = 240
     if total_characters < likely_empty_limit:
         tweet_text = header + 'The operations plan does not currently include any advisories for space operations.'
-        tweet = client.create_tweet(text=tweet_text)
-        print(tweet)
-        #print(tweet_text)
+        client.create_tweet(text=tweet_text)
 
     elif likely_empty_limit <= total_characters <= character_limit:
         with open('scratchier.txt', 'r') as file:
             tweet_text = header + file.read()
-            tweet = client.create_tweet(text=tweet_text)
-            print(tweet)
-            #print(tweet_text)
+            client.create_tweet(text=tweet_text)
 
     elif total_characters > character_limit:
         with open('scratchier.txt', 'r') as file:
@@ -67,18 +63,34 @@ def run():
                 buffer = ''
                 for x in section:
                     buffer = buffer + str(x)
-                # set what to tweet depending on number of line breaks
-                if str(buffer).startswith('\n'):
-                    tweet_text = header + buffer
+                tweet_text = header + '\n' + buffer
+
+                if len(tweet_text) < 240:
                     # tweet!
-                    tweet = client.create_tweet(text=tweet_text)
-                    print(tweet)
-                else:
-                    tweet_text = header + '\n' + buffer
-                    # tweet!
-                    tweet = client.create_tweet(text=tweet_text)
-                    print(tweet)
-                #print(tweet_text)
+                    client.create_tweet(text=tweet_text)
+
+                elif len(tweet_text) >= 240:
+                    character = 240
+                    while tweet_text[character] != 'Z':
+                        character -= 1
+
+                    character_printer = 0
+                    tweet_text_sub1 = str('')
+                    while 0 <= character_printer <= character:
+                        tweet_text_sub1 = tweet_text_sub1 + tweet_text[character_printer]
+                        character_printer += 1
+                    response = client.create_tweet(text = tweet_text_sub1)
+                    response_1 = response[0]
+                    tweet_id = response_1['id']
+
+                    character_printer = character + 1
+                    tweet_text_sub2 = str('')
+                    while character <= character_printer <= len(tweet_text) - 1:
+                        tweet_text_sub2 = tweet_text_sub2 + tweet_text[character_printer]
+                        character_printer += 1
+                    tweet_text_sub2 = '== BACKUP(S) ==' + tweet_text_sub2
+                    client.create_tweet(text = tweet_text_sub2, in_reply_to_tweet_id = tweet_id)
+
                 # increase array start value, array end value, and session number by 1
                 s += 1
                 e += 1
